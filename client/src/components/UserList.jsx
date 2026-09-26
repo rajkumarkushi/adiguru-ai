@@ -1,4 +1,13 @@
-function UserList({ users }) {
+function UserList({ users, loading, error }) {
+
+   if (loading) {
+    return <p>Loading users...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
     <div>
       {users.map(user => (

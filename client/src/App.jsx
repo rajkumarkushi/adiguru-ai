@@ -1,121 +1,104 @@
+
 import { useEffect, useState } from "react";
+import {  Routes, Route } from "react-router-dom";
+import CoursePage from "./components/CoursePage";
 import Navbar from "./components/Navbar";
-import CourseCard from "./components/CourseCard";
-import UserList from "./components/UserList";
+import CourseDetails from "./components/CourseDetails";
+// import courses from "./data/courses";
+import CourseList from "./components/CourseList";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [error, setError] = useState("");
-
   const [users, setUsers] = useState([]);
-const [loading, setLoading] = useState(true);
-   const [selectedCourse, setSelectedCourse] = useState(null);
-
-  //  useEffect(() => {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data);
-  //     });
-  // }, []);
+  const [loading, setLoading] = useState(true);
+  // const [selectedCourse, setSelectedCourse] = useState(null);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-  async function getUsers() {
+  async function getCourses() {
     try {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
+        "http://localhost:5000/api/courses"
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch users");
+        throw new Error("Failed to fetch courses");
       }
 
       const data = await response.json();
 
-      setUsers(data);
-      setLoading(false);
+      setCourses(data);
     } catch (error) {
-      setError("Failed to load users");
-      setLoading(false);
+      console.log(error);
     }
   }
 
-  getUsers();
+  getCourses();
 }, []);
 
-  const courses = [
-    {
-      title: "JavaScript",
-      description: "Master JavaScript fundamentals",
-      level: "Beginner",
-    },
-    {
-      title: "React",
-      description: "Build modern interfaces with React",
-      level: "Intermediate",
-    },
-    {
-      title: "Node.js",
-      description: "Build REST APIs with Node.js",
-      level: "Beginner",
-    },
-    {
-      title: "MongoDB",
-      description: "Store application data",
-      level: "Beginner",
-    },
-  ];
 
-  function handleStartCourse(addedcourse) {
-    setSelectedCourse(addedcourse);
-    console.log(selectedCourse);
-  }
+  // function handleStartCourse(addedcourse) {
+  //   setSelectedCourse(addedcourse);
+  // }
+// async function handleStartCourse(course) {
+//   try {
+//     const response = await fetch(
+//       `http://localhost:5000/api/courses/${course.id}`
+//     );
 
-  return (
-    <div>
-      <Navbar />
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch course");
+//     }
 
-      <h1>Welcome to AdiGuru-AI</h1>
+//     const data = await response.json();
 
-      <h2>Total Courses: {count}</h2>
+//     setSelectedCourse(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-      <button onClick={() => setCount(count + 1)}>Increase</button>
+return (
+  <div className="min-h-screen bg-slate-50">
+    <Navbar />
 
-      <div>
-        {courses.map((course) => (
-          <CourseCard
-            key={course.title}
-            {...course}
-            onStart={() => handleStartCourse(course)}
-          />
-        ))}
-      </div>
+    <Routes>
 
-      {selectedCourse && (
-        <div>
-          <h2>You selected: {selectedCourse.title}</h2>
-          <p>{selectedCourse.description}</p>
-          <p>Level: {selectedCourse.level}</p>
-        </div>
-      )}
+      <Route
+        path="/"
+        element={
+          <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
 
-      {/* <div>
-     {loading ? (
-  <p>Loading users...</p>
-) : error ? (
-  <p>{error}</p>
-) : (
-  users.map(user => (
-    <div key={user.id}>
-      <h3>{user.name}</h3>
-      <p>{user.email}</p>
-    </div>
-  ))
+            <section className="mb-10 text-center">
+              <h1 className="text-4xl font-bold tracking-tight text-blue-600 sm:text-5xl">
+                AdiGuru-AI
+              </h1>
+
+              <p className="mt-3 text-lg text-gray-600">
+                Learn technology with a smarter learning experience.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="mb-6 text-2xl font-bold text-gray-900">
+                Explore Courses
+              </h2>
+
+              <CourseList courses={courses} />
+            </section>
+
+          </main>
+        }
+      />
+
+      <Route
+        path="/courses/:id"
+        element={<CoursePage />}
+      />
+
+    </Routes>
+  </div>
 )}
-      </div> */}
-      <UserList users={users} />
-    </div>
-  );
-}
 
 export default App;
+
