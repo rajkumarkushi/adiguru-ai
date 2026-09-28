@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import CourseDetails from "./components/CourseDetails";
 // import courses from "./data/courses";
 import CourseList from "./components/CourseList";
+import CreateCourse from "./components/CreateCourse";
+import CreateLesson from "./components/CreateLesson";
 
 function App() {
   const [error, setError] = useState("");
@@ -95,6 +97,16 @@ return (
         path="/courses/:id"
         element={<CoursePage />}
       />
+
+      <Route
+    path="/admin/create-course"
+    element={<CreateCourse />}
+  />
+
+  <Route
+  path="/admin/create-lesson"
+  element={<CreateLesson />}
+/>
 
     </Routes>
   </div>
