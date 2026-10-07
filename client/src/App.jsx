@@ -8,6 +8,8 @@ import CourseDetails from "./components/CourseDetails";
 import CourseList from "./components/CourseList";
 import CreateCourse from "./components/CreateCourse";
 import CreateLesson from "./components/CreateLesson";
+import ManageLessons from "./components/ManageLessons";
+import LessonPage from "./components/LessonPage";
 
 function App() {
   const [error, setError] = useState("");
@@ -107,7 +109,14 @@ return (
   path="/admin/create-lesson"
   element={<CreateLesson />}
 />
-
+<Route
+  path="/admin/manage-lessons"
+  element={<ManageLessons />}
+/>
+<Route
+  path="/courses/:courseId/lessons/:lessonId"
+  element={<LessonPage />}
+/>
     </Routes>
   </div>
 )}

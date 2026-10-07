@@ -1,5 +1,5 @@
-
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function CourseDetails({ course }) {
   const [selectedLesson, setSelectedLesson] = useState(null);
@@ -136,37 +136,29 @@ useEffect(() => {
         </h3>
 
         <div className="space-y-3">
-          {course.lessons.map((lesson) => {
-            const isCompleted =
-              completedLessons[course.id]?.includes(lesson.id);
+        {course.lessons.map((lesson) => (
+  <Link
+    key={lesson.id}
+    to={`/courses/${course.id}/lessons/${lesson.id}`}
+    className="block rounded-xl bg-white p-5 shadow-sm transition hover:shadow-md"
+  >
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm font-semibold text-blue-600">
+          Lesson {lesson.id}
+        </p>
 
-            const isSelected =
-              selectedLesson?.id === lesson.id;
+        <h3 className="mt-1 text-lg font-bold text-slate-900">
+          {lesson.title}
+        </h3>
+      </div>
 
-            return (
-              <div
-                key={lesson.id}
-                onClick={() => setSelectedLesson(lesson)}
-                className={`cursor-pointer rounded-lg border p-4 transition ${
-                  isSelected
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-200 bg-gray-50 hover:border-blue-300 hover:bg-blue-50"
-                }`}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <span className="font-medium text-gray-800">
-                    {lesson.id}. {lesson.title}
-                  </span>
-
-                  {isCompleted && (
-                    <span className="whitespace-nowrap text-sm font-medium text-green-600">
-                      ✓ Completed
-                    </span>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+      <span className="text-slate-400">
+        →
+      </span>
+    </div>
+  </Link>
+))}
         </div>
       </div>
 
