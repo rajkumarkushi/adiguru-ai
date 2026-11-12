@@ -27,7 +27,7 @@ app.use("/api/courses", lessonRoutes);
 app.use("/api/users", userRoutes);
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.URIMONGO_)
   .then(() => {
     console.log("MongoDB connected successfully");
 

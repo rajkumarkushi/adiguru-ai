@@ -56,7 +56,6 @@ function CreateLesson() {
     alert("Please enter lesson content");
     return;
   }
-
   // Quiz validation ONLY if quiz is enabled
   if (hasQuiz) {
     if (!question.trim()) {
@@ -162,7 +161,6 @@ function CreateLesson() {
           value={content}
           onChange={(event) => setContent(event.target.value)}
         />
-
 <div>
   <label>
     <input
