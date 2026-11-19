@@ -10,6 +10,8 @@ import CreateCourse from "./components/CreateCourse";
 import CreateLesson from "./components/CreateLesson";
 import ManageLessons from "./components/ManageLessons";
 import LessonPage from "./components/LessonPage";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   const [error, setError] = useState("");
@@ -94,7 +96,12 @@ return (
           </main>
         }
       />
+<Route
+  path="/login"
+  element={<Login />}
+/>
 
+<Route path="/register" element={<Register />} />
       <Route
         path="/courses/:id"
         element={<CoursePage />}
